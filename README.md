@@ -31,7 +31,7 @@ git clone https://github.com/philiplassen/StatFloor.git
 
 We can run the data Webscrape with the following command as an example.
 ```
-python3 player_scrape.py "mike trout" 2018
+python3 src/player_scrape.py "mike trout" 2018
 ``` 
 This stores Mike Trout's gamelogs from 2018 in a csv
 

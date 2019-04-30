@@ -14,6 +14,7 @@ PID.csv
 import sys
 import os
 import requests
+import pandas as pd
 from bs4 import BeautifulSoup as bs
 
 def log(message):
@@ -29,7 +30,7 @@ response = requests.get("https://www.baseball-reference.com/players/gl.fcgi?id="
 
 
 if not response:
-  print("Found Web Page")
+  print("Coud not find Webpage")
   sys.exit() # Exit the Program
 
 # ------- Proccessing Web Page ---------
@@ -60,15 +61,20 @@ def getContent(array):
       result += [a[0].string]
   return result
 
+data = []
 for tr in game_log_rows:
-  count = count + 1
   tds = tr.findAll('td')
   results = [t.contents for t in tds] 
   res = getContent(results)
-  print(res)
-  print("")
-      
+  
+  if len(res) > 0:
+    data += [res] 
 
 
 
-
+headers = ["Rk",	"Gcar",	"Gtm",	"Date",	"Tm",		"Opp",	"Rslt",	"Inngs",	
+"PA",	"AB",	"R",	"H",	"2B",	"3B",	"HR",	"RBI",	"BB",	"IBB",	
+"SO",	"HBP",	"SH",	"SF",	"ROE",	"GDP",	"SB",	"CS",	"BA",	"OBP",	
+"SLG",	"OPS",	"BOP",	"aLI",	"WPA",	"RE24",	"DK",	"FD", "Pos"]
+df = pd.DataFrame(data, columns = headers)
+print(df)

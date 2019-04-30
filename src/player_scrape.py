@@ -10,15 +10,12 @@ import requests
 import pandas as pd
 from bs4 import BeautifulSoup as bs
 
-YEAR = "2017"
-PLAYER = "mike trout"
+YEAR = "2019" # default year if not provided by user
 if len(sys.argv) > 1:
   PLAYER = sys.argv[1]
 if len(sys.argv) > 2: 
   YEAR = sys.argv[2]
-print(PLAYER)
-print(YEAR)
-  
+
 def getContent(array):
   """
   Formats the content of an Array based 
@@ -56,7 +53,6 @@ def getUrl(pid, year):
  Generate URL (as a string) to be 
  scraped for gamelogs for a given pid and year
  """
- print(year)
  return "https://www.baseball-reference.com/players/gl.fcgi?id=" + pid + "&t=b&year=" + year
 
 
@@ -67,7 +63,6 @@ def getData(player_name, year = "2019", verbose = False):
   the player played in that year"""
   pid = generatePID(player_name)
   url = getUrl(pid, year)
-  print(url)
   response = requests.get(url)
   if not response:
     print("Coud not find Webpage")
@@ -83,7 +78,9 @@ def getData(player_name, year = "2019", verbose = False):
     if len(res) > 0:
       data += [res]
   df = pd.DataFrame(data, columns = headers)
-  df.to_csv(pid + "-" + year + ".csv")
+  file_name = pid + "-" + year + ".csv" 
+  print("Succesfully generated " + file_name)
+  df.to_csv(file_name)
 
 
 """ 

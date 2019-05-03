@@ -35,9 +35,3 @@ python3 src/player_scrape.py "mike trout" 2018
 ``` 
 This stores Mike Trout's gamelogs from 2018 in a csv
 
-
-### Team Members
-- Philip Lassen
-- Sid Mukkamala
-- David Majercak
-

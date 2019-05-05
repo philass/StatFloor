@@ -4,12 +4,20 @@
 Library for Scraping Game Logs for MLB
 players from baseball-reference
 """
-
+import sys
 import pandas as pd
 import pybaseball as pyb
 
+YEAR = "2019" # default year if not provided by user
+if len(sys.argv) > 1:
+  PLAYER = sys.argv[1]
+if len(sys.argv) > 2: 
+  YEAR = sys.argv[2]
 
-
+headers = ["Rk",	"Gcar",	"Gtm",	"Date",	"Tm",		"Opp",	"Rslt",	"Inngs",	
+"PA",	"AB",	"R",	"H",	"2B",	"3B",	"HR",	"RBI",	"BB",	"IBB",	
+"SO",	"HBP",	"SH",	"SF",	"ROE",	"GDP",	"SB",	"CS",	"BA",	"OBP",	
+"SLG",	"OPS",	"BOP",	"aLI",	"WPA",	"RE24",	"DK",	"FD", "Pos"]
 
 def getUrl(pid, year):
  """
@@ -29,8 +37,21 @@ def getLogs(last_name, first_name, year = "2019"):
   pids = pyb.playerid_lookup(last_name, first_name)
   pid = pids["key_bbref"][0]
   url = getUrl(pid, year)
-  return pd.read_html(url)[-1]
+  raw_df =  pd.read_html(url)[-1]
+  df = raw_df[raw_df.Pos.notnull()]
+  return df
 
-result = getLogs("trout", "mike") 
-print(result)
+
+
+""" 
+If Command Line Arguements were given run
+Code snippit Below
+"""
+
+if len(sys.argv) > 1:
+  name = PLAYER.split()
+  first_name = name[0]
+  last_name = name[1]
+  res = (getLogs(last_name, first_name, year = YEAR))
+  print(res)
 

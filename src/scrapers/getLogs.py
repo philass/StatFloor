@@ -55,3 +55,5 @@ if len(sys.argv) > 1:
   res = (getLogs(last_name, first_name, year = YEAR))
   print(res)
 
+
+

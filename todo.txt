@@ -1,0 +1,9 @@
+Get Game Logs for given Player
+
+Clean Game Log Table
+
+Train Model (Regression or trees or some bullshit)
+
+Predict Score for given Game
+
+

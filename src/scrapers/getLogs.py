@@ -7,6 +7,7 @@ players from baseball-reference
 import sys
 import pandas as pd
 import pybaseball as pyb
+import os
 
 YEAR = "2019" # default year if not provided by user
 if len(sys.argv) > 1:
@@ -18,6 +19,9 @@ headers = ["Rk",	"Gcar",	"Gtm",	"Date",	"Tm",		"Opp",	"Rslt",	"Inngs",
 "PA",	"AB",	"R",	"H",	"2B",	"3B",	"HR",	"RBI",	"BB",	"IBB",	
 "SO",	"HBP",	"SH",	"SF",	"ROE",	"GDP",	"SB",	"CS",	"BA",	"OBP",	
 "SLG",	"OPS",	"BOP",	"aLI",	"WPA",	"RE24",	"DK",	"FD", "Pos"]
+
+
+path="/Users/philiplassen/CS/StatFloor/data/player_data"
 
 def getUrl(pid, year):
  """
@@ -39,9 +43,25 @@ def getLogs(last_name, first_name, year = "2019"):
   url = getUrl(pid, year)
   raw_df =  pd.read_html(url)[-1]
   df = raw_df[raw_df.Pos.notnull()]
+  if df.empty:
+    print("Could not get Data")
+  else:
+    print("Saving result to....")
+    try:
+      os.mkdir(path + "/" + pid)
+    except:
+      print("Player folder exists")
+    try:
+      os.mkdir(path + "/" + pid + "/" + year)
+    except:
+      print("Player year folder exsits")
+    #replace file 
+    df.to_csv(path_or_buf = path + "/" + pid + "/" + year +  "/gameLogs.csv", index = False)
   return df
 
 
+  
+  
 
 """ 
 If Command Line Arguements were given run

@@ -1,0 +1,7 @@
+Scraping
+  -Pull raw webpages
+  -Store in S3
+
+Parsing WebPage Files
+  -Store CSV's in a structured manner
+

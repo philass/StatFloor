@@ -1,9 +1,7 @@
-Get Game Logs for given Player
-
-Clean Game Log Table
-
-Train Model (Regression or trees or some bullshit)
-
-Predict Score for given Game
+[x] Get Game Logs for given Player 
+[x] Clean Game Log Table
+[] Find out how a player does against teams/players
+[] Train Model (Regression or trees or some bullshit)
+[] Predict Score for given Game
 
 

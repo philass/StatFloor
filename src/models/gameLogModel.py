@@ -15,10 +15,18 @@ def get_table(pid, year):
   del df['DFS(DK)']
   del df['DFS(FD)']
   del df['Pos']
-  df.rename({"Unnamed: 5" : "Away"}, axis = 'columns')
+  del df['Inngs']
+  del df['Rslt']
+  change = (df.columns[5])
+  df.rename({change  : "Away"}, axis = 'columns', inplace = True)
   return df
 
 def date_to_int(date1):
+  """
+  Takes a date of a certain string format
+  and returns the date from an absolute Date
+  declared in the global start date
+  """
   res = date1.split()
   month = month_to_int(res[0])
   day = int(res[1])
@@ -29,12 +37,24 @@ def date_to_int(date1):
 
 
 def month_to_int(month):
+  """
+  Takes a a 3 letter str for month and prints the
+  corresponding integer
+  """
   month = month.lower()
   months = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
   return months.index(month) + 1
+
+def away_filter(val):
+  """
+  Converts h/a respresentation to integer
+  """
+  return 1 if val == '@' else 0
+  
+
 result = get_table(pid, year)
 result["Date"] = result["Date"].apply(date_to_int)
-print(result["Unnamed: 5"])
+result["Away"] = result["Away"].apply(away_filter)
 print(result)
 # (To Do) Clean DataFrame i.e Strings -> Numbers, NAN -> Numbers, Remove -> Columns
 

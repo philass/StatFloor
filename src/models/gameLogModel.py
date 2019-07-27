@@ -9,6 +9,7 @@ path = "/Users/philiplassen/CS/StatFloor/data/player_data"
 pid = "troutmi01"
 year = "2017"
 start_date = date(int(year), 3, 1)
+import numpy as np
 
 def get_table(pid, year):
   df = pd.read_csv(path + "/" + pid + "/" + year + "/gameLogs.csv")
@@ -59,6 +60,19 @@ print(result)
 # (To Do) Clean DataFrame i.e Strings -> Numbers, NAN -> Numbers, Remove -> Columns
 
 # (To Do) Chunk into Training and Test 10 i.e list of matrices of consecutive 10 Games
+
+def chunk(table, frame_size = 10):
+  np_data = table.to_numpy()
+  depth = np_data.shape[0] - frame_size + 1 
+  chunked = np.zeros((frame_size, np_data.shape[1], depth))
+  for i in range(depth):
+    chunked[:, :, i] = np_data[i:i + frame_size, :]
+  return chunked
+
+chunks = chunk(result)
+print(chunks)
+print(chunks.shape)
+
 
 # (To Do) Train a model i.e Regression
 

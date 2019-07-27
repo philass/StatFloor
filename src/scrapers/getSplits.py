@@ -58,10 +58,8 @@ def getSplits(last_name, first_name, year = "2019"):
   tables = pd.read_html(raw_html)
   print(tables)
   print(type(tables))
+  print(len(tables))
   return tables
 
-getSplits("trout", "mike")
-
-
-
+splits = getSplits("trout", "mike")
 

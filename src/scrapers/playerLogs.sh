@@ -15,21 +15,24 @@
 # ./playerLogs.sh "mike trout" 2018
 #
 #________________________________________
-echo $1
-echo $2
 if [ "$1" == "" ]
 then
-  echo "Missing Player Name"
+  echo "Missing Player First Name"
   exit 1
 elif [ "$2" == "" ]
 then
+  echo "Missing Player Last Name"
+  exit 1
+elif [ "$3" == "" ]
+then
   YEAR="2019"
 else
-  YEAR="$2"
+  YEAR="$3"
 fi
 
 #Execute Python Webscrape
-python3 getLogs.py $1 $YEAR
+FILE_LOCATION="$(python3 getLogs.py $1 $2 $YEAR | tail -n 1)"
+echo "$FILE_LOCATION"
 
 
 

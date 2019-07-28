@@ -9,11 +9,14 @@ import pandas as pd
 import pybaseball as pyb
 import os
 
-YEAR = "2019" # default year if not provided by user
+
+#YEAR = "2019" # default year if not provided by user
 if len(sys.argv) > 1:
-  PLAYER = sys.argv[1]
+  FIRST_NAME = sys.argv[1]
 if len(sys.argv) > 2: 
-  YEAR = sys.argv[2]
+  LAST_NAME = sys.argv[2]
+if len(sys.argv) > 3: 
+  YEAR = sys.argv[3]
 
 headers = ["Rk",	"Gcar",	"Gtm",	"Date",	"Tm",		"Opp",	"Rslt",	"Inngs",	
 "PA",	"AB",	"R",	"H",	"2B",	"3B",	"HR",	"RBI",	"BB",	"IBB",	
@@ -56,7 +59,9 @@ def getLogs(last_name, first_name, year = "2019"):
     except:
       print("Player year folder exsits")
     #replace file 
-    df.to_csv(path_or_buf = path + "/" + pid + "/" + year +  "/gameLogs.csv", index = False)
+    path_of_buf = path + "/" + pid + "/" + year +  "/gameLogs.csv"
+    df.to_csv(path_of_buf, index = False)
+    print(path_of_buf)
   return df
 
 
@@ -68,12 +73,8 @@ If Command Line Arguements were given run
 Code snippit Below
 """
 
-if len(sys.argv) > 1:
-  name = PLAYER.split()
-  first_name = name[0]
-  last_name = name[1]
-  res = (getLogs(last_name, first_name, year = YEAR))
-  print(res)
+if len(sys.argv) > 3:
+  res = (getLogs(LAST_NAME, FIRST_NAME, year = YEAR))
 
 
 

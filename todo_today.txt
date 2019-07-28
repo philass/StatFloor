@@ -1,0 +1,7 @@
+Scrape Tables for a player
+
+Get splits vs Pitchers/teams
+
+Find Players next game
+
+Chunk games into 10 consecutive games

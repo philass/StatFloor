@@ -7,9 +7,16 @@ from datetime import date
 import pandas as pd
 path = "/Users/philiplassen/CS/StatFloor/data/player_data"
 pid = "troutmi01"
-year = "2017"
+year = "2019"
 start_date = date(int(year), 3, 1)
 import numpy as np
+
+
+teams = []
+with open("teams.txt") as f:
+  for w in f:
+    teams += w.split()
+
 
 def get_table(pid, year):
   df = pd.read_csv(path + "/" + pid + "/" + year + "/gameLogs.csv")
@@ -18,6 +25,7 @@ def get_table(pid, year):
   del df['Pos']
   del df['Inngs']
   del df['Rslt']
+  del df["Gtm"]
   change = (df.columns[5])
   df.rename({change  : "Away"}, axis = 'columns', inplace = True)
   return df
@@ -29,12 +37,18 @@ def date_to_int(date1):
   declared in the global start date
   """
   res = date1.split()
+  print(res[0])
   month = month_to_int(res[0])
   day = int(res[1])
   result_date = date(int(year), month, day)
   return (result_date - start_date).days
 
-
+def team_to_int(team):
+  ti = teams.index(team)
+  if 0 <= ti < 30:
+    return ti
+  else:
+    raise Exception(team + " IS NOT IN LIST OF TEAMS")
 
 
 def month_to_int(month):
@@ -56,6 +70,10 @@ def away_filter(val):
 result = get_table(pid, year)
 result["Date"] = result["Date"].apply(date_to_int)
 result["Away"] = result["Away"].apply(away_filter)
+result["Tm"] = result["Tm"].apply(team_to_int)
+print(result.columns)
+#result["Opp"] = result["Opp"].apply(team_to_int)
+
 print(result)
 # (To Do) Clean DataFrame i.e Strings -> Numbers, NAN -> Numbers, Remove -> Columns
 

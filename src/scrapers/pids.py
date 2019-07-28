@@ -43,7 +43,3 @@ def getAllPlayers():
 
 
 getAllPlayers()
-    
-  
-
-

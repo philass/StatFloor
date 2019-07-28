@@ -33,6 +33,8 @@ fi
 #Execute Python Webscrape
 FILE_LOCATION="$(python3 getLogs.py $1 $2 $YEAR | tail -n 1)"
 echo "$FILE_LOCATION"
-
-
+DIR=$(dirname "${FILE_LOCATION}")
+NEW_FILE=$DIR/filtered_logs.csv
+head -n 1 "$FILE_LOCATION" > "$NEW_FILE"
+grep '^[0-9]' "$FILE_LOCATION" >> "$NEW_FILE"
 

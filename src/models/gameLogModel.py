@@ -7,7 +7,7 @@ from datetime import date
 import pandas as pd
 path = "/Users/philiplassen/CS/StatFloor/data/player_data"
 pid = "troutmi01"
-year = "2019"
+year = "2016"
 start_date = date(int(year), 3, 1)
 import numpy as np
 
@@ -19,14 +19,14 @@ with open("teams.txt") as f:
 
 
 def get_table(pid, year):
-  df = pd.read_csv(path + "/" + pid + "/" + year + "/gameLogs.csv")
+  df = pd.read_csv(path + "/" + pid + "/" + year + "/filtered_logs.csv")
   del df['DFS(DK)']
   del df['DFS(FD)']
   del df['Pos']
   del df['Inngs']
   del df['Rslt']
   del df["Gtm"]
-  change = (df.columns[5])
+  change = (df.columns[4])
   df.rename({change  : "Away"}, axis = 'columns', inplace = True)
   return df
 
@@ -37,7 +37,6 @@ def date_to_int(date1):
   declared in the global start date
   """
   res = date1.split()
-  print(res[0])
   month = month_to_int(res[0])
   day = int(res[1])
   result_date = date(int(year), month, day)
@@ -71,10 +70,9 @@ result = get_table(pid, year)
 result["Date"] = result["Date"].apply(date_to_int)
 result["Away"] = result["Away"].apply(away_filter)
 result["Tm"] = result["Tm"].apply(team_to_int)
-print(result.columns)
+result["Opp"] = result["Opp"].apply(team_to_int)
 #result["Opp"] = result["Opp"].apply(team_to_int)
 
-print(result)
 # (To Do) Clean DataFrame i.e Strings -> Numbers, NAN -> Numbers, Remove -> Columns
 
 # (To Do) Chunk into Training and Test 10 i.e list of matrices of consecutive 10 Games
@@ -88,8 +86,6 @@ def chunk(table, frame_size = 10):
   return chunked
 
 chunks = chunk(result)
-print(chunks)
-print(chunks.shape)
 
 
 # (To Do) Train a model i.e Regression

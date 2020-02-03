@@ -60,20 +60,11 @@ class Batter:
 
 
 
-  
-  def next_oppenent(self):
-    """
-    Get Next team
-    """
-    return None
-
-    
-
-
+"""
 player1 = Batter("mike", "trout")
 table = player1.get_logs(2018)
 print(table)
-
+"""
 
 
 

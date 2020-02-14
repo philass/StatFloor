@@ -49,11 +49,11 @@ class Batter:
                 print("Saving result to....")
                 try:
                     os.mkdir(data_path + "/" + self.bref_id)
-                except: # pylint: disable=W0702
+                except:  # pylint: disable=W0702
                     print("Player folder exists")
                 try:
                     os.mkdir(data_path + "/" + self.bref_id + "/" + str(year))
-                except: # pylint: disable=W0702
+                except:  # pylint: disable=W0702
                     print("Player year folder exsits")
                 # replace file
                 data_frame.to_csv(raw_logs, index=False)
